@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+}
+
+div {
+    border: 1px solid red;
+}
+
+.container {
+    display: -webkit-flex;
+    display: flex;
+}
+
+nav {
+    width: 200px;
+}
+
+.column {
+    flex: 1;
+}
+
+section {
+    position: relative;
+    display: block;
+}
+
+
+/*@media screen and (min-width: 600px) {
+    nav {
+        float: left;
+        width: 25%;
+    }
+
+    section {
+        margin-left: 25%;
+    }    
+}
+
+@media screen and (max-width: 599px) {
+    nav li {
+        display: inline;
+    }
+}*/
