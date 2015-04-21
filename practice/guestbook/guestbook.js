@@ -18,18 +18,37 @@ function createPost() {
 
     $('#textBox').empty();
     $('#authorBox').empty();
+    $('#displayPane').empty();
 
-    // Call displayPosts
+
+    window.setTimeout(displayPosts(), 500);
 }
 
 function displayPosts() {
+    var Post = Parse.Object.extend('Post');
+    var query = new Parse.Query(Post);
 
+    query.find({
+        success: function(results) {
+            console.log('Successfully retreived ' + results.length + ' posts.');
+
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+                console.log(object.get('text') + ' - ' + object.get('author'));
+                $('#displayPane').append(object.get('text') + ' - Authored by: ');
+                $('#displayPane').append(object.get('author') + '<br>');
+
+            }
+        },
+        error: function(error) {
+            console.log('Error: ' + error.code + ' ' + error.message);
+        }
+    });
 }
 
 $(document).ready(function(){
 
-    // Function to show all posts
+    displayPosts();
 
-    // Create click handler
     $('#submitButton').click(createPost);
 });
