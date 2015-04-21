@@ -14,23 +14,28 @@ function createPost() {
     post.set('text', textInputString);
     post.set('author', authorInputString);
 
-    post.save();
+    post.save({
+        success: function(Post) {
+            console.log('Successfully saved post with id : ' + Post.id);
 
-    $('#textBox').empty();
-    $('#authorBox').empty();
-    $('#displayPane').empty();
-
-
-    window.setTimeout(displayPosts(), 500);
+            $('#textBox').empty();
+            $('#authorBox').empty();
+            displayPosts();
+        },
+        error: function(error) {
+            console.log('Error: ' + error.code + ' ' + error.message);
+        }
+    });
 }
 
 function displayPosts() {
     var Post = Parse.Object.extend('Post');
     var query = new Parse.Query(Post);
-
+    
     query.find({
         success: function(results) {
             console.log('Successfully retreived ' + results.length + ' posts.');
+            $('#displayPane').empty();
 
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
