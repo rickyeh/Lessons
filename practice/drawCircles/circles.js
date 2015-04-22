@@ -35,6 +35,6 @@ function getRandomColor() {
 
 $(document).ready(function(){
     for (var i = 0; i < 100 ; i++) {
-        window.setTimeout(drawRandomCircle(), getRandom(0, 5000));
+        setTimeout(drawRandomCircle, getRandom(0,3000));
     }
 });
