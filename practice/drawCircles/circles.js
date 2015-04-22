@@ -1,3 +1,4 @@
+// Minimum and Maximum values for Center X, Y, and Radius
 var minX = 50;
 var minY = 50;
 var maxX = 950;
@@ -7,11 +8,6 @@ var maxRad = 50;
 
 var canvas = document.getElementById('myCanvas');
 
-
-    // Method: Draws a circle with a fill color.
-    // Parameters:
-    //     radius - desired radius of the circle
-    //     color - color that the circle is to be filled with
 function drawRandomCircle() {
     var ctx = canvas.getContext('2d');
 
@@ -19,7 +15,7 @@ function drawRandomCircle() {
     ctx.arc(getRandom(minX, maxX), getRandom(minY, maxY), getRandom(minRad, maxRad), 0, 2 * Math.PI, false);
     ctx.fillStyle = getRandomColor();
     ctx.fill();
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1;
     ctx.strokeStyle = 'black';
     ctx.stroke();
 }
@@ -39,6 +35,6 @@ function getRandomColor() {
 
 $(document).ready(function(){
     for (var i = 0; i < 100 ; i++) {
-        drawRandomCircle();
+        window.setTimeout(drawRandomCircle(), getRandom(0, 5000));
     }
 });
