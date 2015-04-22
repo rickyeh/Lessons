@@ -1,11 +1,14 @@
-
+var RADIUS = 45;
 var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+var x = 50;
+var y = 50;
+var direction = 0;
 
-function drawCircle() {
-    var ctx = canvas.getContext('2d');
+function drawCircle(x, y) {
 
     ctx.beginPath();
-    ctx.arc(50, 50, 45, 0, 2 * Math.PI, false);
+    ctx.arc(x, y, RADIUS, 0, 2 * Math.PI, false);
     ctx.fillStyle = '#ccc';
     ctx.fill();
     ctx.lineWidth = 1;
@@ -13,17 +16,32 @@ function drawCircle() {
     ctx.stroke();
 }
 
-function repeatFunction() {
-    $('#myCanvas').animate({
-        'marginTop' : '+=600px'
-    });
-    $('#myCanvas').animate({
-        'marginTop' : '-=600px'
-    });
-    requestAnimationFrame(repeatFunction);
+function render() {
+    if ( y === canvas.height - RADIUS) {
+        direction = 1;
+    } else if (y === RADIUS) {
+        direction = 0;
+    }
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (direction === 0) {
+        drawCircle(x,++y);
+    } else {
+        drawCircle(x,--y);
+    }
+    requestAnimationFrame(render);
 }
 
 $(document).ready(function() {
-    repeatFunction();
-    drawCircle();
+    drawCircle(x, y);
+    render();
 });
+
+
+    // $('ctx').animate({
+    //     'marginTop' : '+=600px'
+    // });
+    // $('ctx').animate({
+    //     'marginTop' : '-=600px'
+    // });
