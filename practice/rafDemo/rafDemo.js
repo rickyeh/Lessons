@@ -3,8 +3,8 @@ var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
 var x = 50;
 var y = 50;
-var dX = 1;
-var dY = 1;
+var dX = 4;
+var dY = 4;
 
 function drawCircle(x, y) {
 
@@ -18,11 +18,11 @@ function drawCircle(x, y) {
 }
 
 function render() {
-    if ( y === canvas.height - RADIUS || y === RADIUS) {
+    if ( y >= canvas.height - RADIUS || y <= RADIUS) {
         dY = -dY;
     }
 
-    if ( x === canvas.width - RADIUS || x === RADIUS) {
+    if ( x >= canvas.width - RADIUS || x <= RADIUS) {
         dX = -dX;
    }
 
