@@ -1,5 +1,16 @@
+body {
+    font-family: Arial;
+    background-color: #BBB;
+}
+
 #sendID {
     border: 1px solid black;
-    height: 50px;
+    height: 1em;
     width: 200px;
+}
+
+#sendContent {
+    border: 1px solid black;
+    height: 2em;
+    width: 500px;
 }
