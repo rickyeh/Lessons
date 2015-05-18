@@ -5,6 +5,11 @@ window.onload = function() {
     var ninjaJumpPower;
 
     var score = 0;
+    var scoreText;
+    var topScore;
+
+    var powerBar;
+    var powerTween;
 
     var placedPoles;
     var poleGroup;
@@ -26,12 +31,18 @@ window.onload = function() {
         create: function() {
             game.stage.backgroundColor = '#87CEEB'; // Set background color
             game.add.sprite(0, 0, 'sky'); // Add sky color
-            
+
             ninjaJumping = false;
             ninjaFallingDown = false;
             score = 0;
             placedPoles = 0;
             poleGroup = game.add.group();
+
+            topScore = localStorage.getItem('topNinjaScore') === null?0:localStorage.getItem('topNinjaScore');
+            scoreText = game.add.text(10, 10, '-', {
+                font:'bold 16px Arial'
+            });
+            updateScore();
 
             game.physics.startSystem(Phaser.Physics.ARCADE); // Start physics engine
 
@@ -51,7 +62,9 @@ window.onload = function() {
     game.state.add('play', play);
     game.state.start('play');
 
-    function updateScore() {}
+    function updateScore() {
+        scoreText.text = 'Score: ' + score + '\nBest: ' + topScore;
+    }
 
     function prepareToJump() {
 
@@ -89,7 +102,7 @@ window.onload = function() {
 
     }
 
-    Pole = function(game, x, y) {
+    var Pole = function(game, x, y) {
         Phaser.Sprite.call(this, game, x, y, 'pole');
         game.physics.enable(this, Phaser.Physics.ARCADE);
 
