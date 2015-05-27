@@ -15,7 +15,66 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/boot":2,"./states/gameover":3,"./states/menu":4,"./states/play":5,"./states/preload":6}],2:[function(require,module,exports){
+},{"./states/boot":4,"./states/gameover":5,"./states/menu":6,"./states/play":7,"./states/preload":8}],2:[function(require,module,exports){
+'use strict';
+
+var Bird = function(game, x, y, frame) {
+  // initialize your prefab here
+  // The super call to Phaser.Sprite
+  Phaser.Sprite.call(this, game, x, y, 'bird', frame);
+
+  // set the Sprite's Anchor to center
+  this.anchor.setTo(0.5, 0.5);
+
+  // Add and play animations
+  this.animations.add('flap');
+  this.animations.play('flap', 12, true);
+
+  // Add physics
+  this.game.physics.arcade.enableBody(this);
+  this.enableBody = true;
+};
+
+Bird.prototype = Object.create(Phaser.Sprite.prototype);
+Bird.prototype.constructor = Bird;
+
+Bird.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+  
+};
+
+module.exports = Bird;
+
+},{}],3:[function(require,module,exports){
+'use strict';
+
+var Ground = function(game, x, y, width, height) {
+  Phaser.TileSprite.call(this, game, x, y, width, height, 'ground');
+
+  // Enable physics on ground sprite, needed for collision detection
+  this.game.physics.arcade.enableBody(this);
+
+  // Start scrolling our ground
+  this.autoScroll(-200, 0);
+
+  this.body.allowGravity = false;
+  this.body.immovable = true;
+  
+};
+
+Ground.prototype = Object.create(Phaser.TileSprite.prototype);
+Ground.prototype.constructor = Ground;
+
+Ground.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+  
+};
+
+module.exports = Ground;
+
+},{}],4:[function(require,module,exports){
 
 'use strict';
 
@@ -34,7 +93,7 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],3:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -62,7 +121,7 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 
 'use strict';
 function Menu() {}
@@ -78,41 +137,86 @@ Menu.prototype = {
     // and start scrolling in the negative x direction
     this.ground = this.game.add.tileSprite(0, 400, 335, 112, 'ground');
     this.ground.autoScroll(-200, 0);
+
+    // Step 1
+    // Create a Group To put the title assets in so they can be manipulated together
+    this.titleGroup = this.game.add.group();
+
+    // Step 2
+    // Create the title sprite and add it to the group
+    this.title = this.game.add.sprite (0, 0, 'title');
+    this.titleGroup.add(this.title);
+
+    // Step 3
+    // Create the bird sprite and add it to the group
+    this.bird = this.game.add.sprite (200, 5, 'bird');
+    this.titleGroup.add(this.bird);
+
+    // Step 4
+    // Add animation to the bird and start it.
+    this.bird.animations.add('flap');
+    this.bird.animations.play('flap', 12, true);
+
+    // Step 5
+    // Set the origination location of the group
+    this.titleGroup.x = 30;
+    this.titleGroup.y = 100;
+
+    // Step 6
+    // Create an oscillating animatino tween for the group
+    this.game.add.tween(this.titleGroup).to({y:115}, 350, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
+  
+    // Add our start button with a callback
+    this.startButton = this.game.add.button(this.game.width/2, 300, 'startButton', this.startClick, this);
+    this.startButton.anchor.setTo(0.5, 0.5);
   },
   update: function() {
+  },
+
+  startClick: function() {
+    // Start button click handler
+    this.game.state.start('play');
   }
+
 };
 
 module.exports = Menu;
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 
   'use strict';
+
+  var Bird = require('../prefabs/bird');
+  var Ground = require('../prefabs/ground');
+
   function Play() {}
+
   Play.prototype = {
+
     create: function() {
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.sprite = this.game.add.sprite(this.game.width/2, this.game.height/2, 'yeoman');
-      this.sprite.inputEnabled = true;
-      
-      this.game.physics.arcade.enable(this.sprite);
-      this.sprite.body.collideWorldBounds = true;
-      this.sprite.body.bounce.setTo(1,1);
-      this.sprite.body.velocity.x = this.game.rnd.integerInRange(-500,500);
-      this.sprite.body.velocity.y = this.game.rnd.integerInRange(-500,500);
+      this.game.physics.arcade.gravity.y = 500;
 
-      this.sprite.events.onInputDown.add(this.clickListener, this);
+      // Add Background sprite
+      this.background = this.game.add.sprite(0,0,'background');
+
+      // Create a new bird object
+      // and add it to the game
+      this.bird = new Bird(this.game, 100, this.game.height/2);
+      this.game.add.existing(this.bird);
+
+      // Create and Add new Ground Obj
+      this.ground = new Ground(this.game, 0, 400, 335, 112);
+      this.game.add.existing(this.ground);
     },
+
     update: function() {
-
-    },
-    clickListener: function() {
-      this.game.state.start('gameover');
+      this.game.physics.arcade.collide(this.bird, this.ground);
     }
   };
   
   module.exports = Play;
-},{}],6:[function(require,module,exports){
+},{"../prefabs/bird":2,"../prefabs/ground":3}],8:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -139,7 +243,7 @@ Preload.prototype = {
   },
   update: function() {
     if(!!this.ready) {
-      this.game.state.start('menu');
+      this.game.state.start('play');
     }
   },
   onLoadComplete: function() {
