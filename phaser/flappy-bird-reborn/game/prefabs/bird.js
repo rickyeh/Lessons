@@ -23,7 +23,9 @@ Bird.prototype.constructor = Bird;
 Bird.prototype.update = function() {
   
   // write your prefab's specific update code here
-  
 };
 
+Bird.prototype.flap = function() {
+    this.body.velocity.y = -400;
+};
 module.exports = Bird;

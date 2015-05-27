@@ -41,9 +41,11 @@ Bird.prototype.constructor = Bird;
 Bird.prototype.update = function() {
   
   // write your prefab's specific update code here
-  
 };
 
+Bird.prototype.flap = function() {
+    this.body.velocity.y = -400;
+};
 module.exports = Bird;
 
 },{}],3:[function(require,module,exports){
@@ -195,7 +197,7 @@ module.exports = Menu;
 
     create: function() {
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.game.physics.arcade.gravity.y = 500;
+      this.game.physics.arcade.gravity.y = 1200;
 
       // Add Background sprite
       this.background = this.game.add.sprite(0,0,'background');
@@ -208,6 +210,16 @@ module.exports = Menu;
       // Create and Add new Ground Obj
       this.ground = new Ground(this.game, 0, 400, 335, 112);
       this.game.add.existing(this.ground);
+
+      // Keep spacebar from propogating up to the browser
+      this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
+
+      // Add keyboard controls
+      var flapKey = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+      flapKey.onDown.add(this.bird.flap, this.bird);
+
+      // add mouse/touch controls
+      this.input.onDown.add(this.bird.flap, this.bird);
     },
 
     update: function() {
