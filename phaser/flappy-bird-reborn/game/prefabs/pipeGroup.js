@@ -3,7 +3,6 @@
 var Pipe = require('./pipe');
 
 var PipeGroup = function(game, parent) {
-    console.log('New PipeGroup Object constructed');
     Phaser.Group.call(this, game, parent);
 
     this.topPipe = new Pipe(this.game, 0, 0, 0);
@@ -25,7 +24,6 @@ PipeGroup.prototype.update = function() {
 };
 
 PipeGroup.prototype.reset = function(x, y) {
-    console.log('PipeGroup reset has been called');
     // Step 1
     this.topPipe.reset(0, 0);
 
