@@ -219,7 +219,8 @@ Scoreboard.prototype.show = function(score) {
 
     // Step 1
     this.scoreText.setText(score.toString());
-
+    console.log(localStorage);
+    console.log(!!localStorage);
     if(!!localStorage) {
         // Step 2
         bestScore = localStorage.getItem('bestScore');
@@ -229,12 +230,10 @@ Scoreboard.prototype.show = function(score) {
     if(!bestScore || bestScore < score) {
         bestScore = score;
         localStorage.setItem('bestScore', bestScore);
-    } else {
-        // Fallback.  Localstorage isn't available
-        bestScore = 'N/A';
     }
 
     //Step 4
+    console.log(bestScore);
     this.bestScoreText.setText(bestScore.toString());
 
     // Step 5 and 6
@@ -242,10 +241,10 @@ Scoreboard.prototype.show = function(score) {
         medal = this.game.add.sprite(-65, 7, 'medals', 1);
         medal.anchor.setTo(0.5, 0.5);
         this.scoreboard.addChild(medal);
-    } else if (score >= 20) {
+    } else if (score === 0) {
         medal = this.game.add.sprite(-65, 7, 'medals', 0);
         medal.anchor.setTo(0.5, 0.5);
-        this.scoreboard.AddChild(medal);
+        this.scoreboard.addChild(medal);
     }
 
     // Step 7
