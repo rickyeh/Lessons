@@ -219,8 +219,6 @@ Scoreboard.prototype.show = function(score) {
 
     // Step 1
     this.scoreText.setText(score.toString());
-    console.log(localStorage);
-    console.log(!!localStorage);
     if(!!localStorage) {
         // Step 2
         bestScore = localStorage.getItem('bestScore');
@@ -233,39 +231,38 @@ Scoreboard.prototype.show = function(score) {
     }
 
     //Step 4
-    console.log(bestScore);
     this.bestScoreText.setText(bestScore.toString());
 
     // Step 5 and 6
     if (score >= 10 && score < 20) {
-        medal = this.game.add.sprite(-65, 7, 'medals', 1);
+        medal = this.game.add.sprite(-65, 7, 'medals', 0);
         medal.anchor.setTo(0.5, 0.5);
         this.scoreboard.addChild(medal);
-    } else if (score === 0) {
-        medal = this.game.add.sprite(-65, 7, 'medals', 0);
+    } else if (score >= 20) {
+        medal = this.game.add.sprite(-65, 7, 'medals', 1);
         medal.anchor.setTo(0.5, 0.5);
         this.scoreboard.addChild(medal);
     }
 
     // Step 7
-    if (medal) {
+    // if (medal) {
 
-        var emitter = this.game.add.emitter(medal.x, medal.y, 400);
-        this.scoreboard.addChild(emitter);
-        emitter.width = medal.width;
-        emitter.height = medal.height;
+    //     var emitter = this.game.add.emitter(medal.x, medal.y, 200);
+    //     this.scoreboard.addChild(emitter);
+    //     emitter.width = medal.width;
+    //     emitter.height = medal.height;
 
-        emitter.makeParticles('particle');
+    //     emitter.makeParticles('particle');
 
-        emitter.setRotation(-100, 100);
-        emitter.setXSpeed(0,0);
-        emitter.setYSpeed(0,0);
-        emitter.minParticleScale = 0.25;
-        emitter.maxParticleScale = 0.5;
-        emitter.setAll('body.allowGravity', false);
+    //     emitter.setRotation(-100, 100);
+    //     emitter.setXSpeed(0,0);
+    //     emitter.setYSpeed(0,0);
+    //     emitter.minParticleScale = 0.25;
+    //     emitter.maxParticleScale = 0.5;
+    //     emitter.setAll('body.allowGravity', false);
 
-        emitter.start(false, 1000, 1000);
-    }
+    //     emitter.start(false, 1000, 1000);
+    // }
     this.game.add.tween(this).to({y: 0}, 1000, Phaser.Easing.Bounce.Out, true);
 };
 
