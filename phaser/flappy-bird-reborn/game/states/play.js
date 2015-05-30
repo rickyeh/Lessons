@@ -33,9 +33,9 @@
       this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
 
       // Add keyboard controls
-      this.flapKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-      this.flapKey.onDown.addOnce(this.startGame, this);
-      this.flapKey.onDown.add(this.bird.flap, this.bird);
+      // this.flapKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+      // this.flapKey.onDown.addOnce(this.startGame, this);
+      // this.flapKey.onDown.add(this.bird.flap, this.bird);
 
       // add mouse/touch controls
       this.game.input.onDown.addOnce(this.startGame, this);
@@ -82,7 +82,9 @@
 
     deathHandler: function() {
       if (this.bird.alive){
+        this.bird.body.velocity.x = 0;
         this.bird.alive = false;
+        this.bird.animations.stop();
         this.pipes.callAll('stop');
         this.pipeGenerator.timer.stop();
         this.ground.stopScroll();

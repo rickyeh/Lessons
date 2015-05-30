@@ -27,7 +27,6 @@ Preload.prototype = {
     this.load.audio('score', 'assets/score.wav');
     this.load.audio('flap', 'assets/flap.wav');
     this.load.audio('pipeHit', 'assets/pipe-hit.wav');
-    this.load.audio('groundHit', 'assets/ground-hit.wav');
 
     this.load.image('scoreboard', 'assets/scoreboard.png');
     this.load.image('gameover', 'assets/gameover.png');

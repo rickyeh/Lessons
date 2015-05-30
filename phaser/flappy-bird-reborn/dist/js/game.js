@@ -51,6 +51,7 @@ Bird.prototype.update = function() {
 };
 
 Bird.prototype.flap = function() {
+  if (this.alive) {
     this.flapSound.play();
 
     // Launch bird upward on flap
@@ -58,6 +59,7 @@ Bird.prototype.flap = function() {
 
     //rotate the bird to -40 deg
     this.game.add.tween(this).to({angle: -40}, 100).start();
+  }
 };
 
 module.exports = Bird;
@@ -131,6 +133,8 @@ var PipeGroup = function(game, parent) {
     this.hasScored = false;
 
     this.setAll('body.velocity.x', -200);
+
+    this.pipeHit = this.game.add.audio('pipeHit');
 };
 
 PipeGroup.prototype = Object.create(Phaser.Group.prototype);
@@ -166,6 +170,11 @@ PipeGroup.prototype.checkWorldBounds = function() {
         this.exists = false;
     }
 };
+
+PipeGroup.prototype.stop = function() {
+    this.setAll('body.velocity.x', 0);
+    this.pipeHit.play();
+}
 
 module.exports = PipeGroup;
 },{"./pipe":4}],6:[function(require,module,exports){
@@ -383,9 +392,9 @@ module.exports = Menu;
       this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
 
       // Add keyboard controls
-      this.flapKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-      this.flapKey.onDown.addOnce(this.startGame, this);
-      this.flapKey.onDown.add(this.bird.flap, this.bird);
+      // this.flapKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+      // this.flapKey.onDown.addOnce(this.startGame, this);
+      // this.flapKey.onDown.add(this.bird.flap, this.bird);
 
       // add mouse/touch controls
       this.game.input.onDown.addOnce(this.startGame, this);
@@ -432,7 +441,9 @@ module.exports = Menu;
 
     deathHandler: function() {
       if (this.bird.alive){
+        this.bird.body.velocity.x = 0;
         this.bird.alive = false;
+        this.bird.animations.stop();
         this.pipes.callAll('stop');
         this.pipeGenerator.timer.stop();
         this.ground.stopScroll();
@@ -504,7 +515,6 @@ Preload.prototype = {
     this.load.audio('score', 'assets/score.wav');
     this.load.audio('flap', 'assets/flap.wav');
     this.load.audio('pipeHit', 'assets/pipe-hit.wav');
-    this.load.audio('groundHit', 'assets/ground-hit.wav');
 
     this.load.image('scoreboard', 'assets/scoreboard.png');
     this.load.image('gameover', 'assets/gameover.png');

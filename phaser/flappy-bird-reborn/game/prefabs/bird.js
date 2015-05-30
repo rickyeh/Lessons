@@ -34,6 +34,7 @@ Bird.prototype.update = function() {
 };
 
 Bird.prototype.flap = function() {
+  if (this.alive) {
     this.flapSound.play();
 
     // Launch bird upward on flap
@@ -41,6 +42,7 @@ Bird.prototype.flap = function() {
 
     //rotate the bird to -40 deg
     this.game.add.tween(this).to({angle: -40}, 100).start();
+  }
 };
 
 module.exports = Bird;
