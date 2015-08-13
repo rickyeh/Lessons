@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+    <title></title>
+  </head>
+  <body>
+    <div id="container">
+
+    </div>
+
+    <script type="text/javascript">
+
+      var element = document.getElementById("container");
+      var start = new Date().getTime();
+
+
+      function tick() {
+        var elapsed = new Date().getTime() - start;
+
+        elapsed = elapsed / 1000;
+
+        element.innerHTML = '<p>' + elapsed + ' seconds have elapsed.</p>';
+        console.log(elapsed + ' seconds have elapsed.');
+      }
+
+      setInterval(tick, 100);
+
+    </script>
+  </body>
+</html>

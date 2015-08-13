@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="lib/react.js"></script>
+    <script src="lib/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <div id="buttons"></div>
+
+    <div id="shapeList"></div>
+
+    <script type="text/jsx">
+      var shapeListComponent;
+      var shapeArray = [];
+
+      var ShapeButton = React.createClass({
+        onClick: function(event) {
+          console.log(this.props.shapeName);
+          shapeArray.push(this.props.shapeName);
+          shapeListComponent.updateState();
+        },
+
+        render: function() {
+          return <button onClick={this.onClick}>{this.props.shapeName}</button>
+        }
+      });
+
+      var Buttons = React.createClass({
+        render: function() {
+          return <div>
+                    <ShapeButton shapeName="Sphere" />
+                    <ShapeButton shapeName="Cube" />
+                    <ShapeButton shapeName="Cone" />
+                  </div>;
+        }
+      });
+
+      React.render(<Buttons />, document.getElementById("buttons"));
+
+      var ShapeList = React.createClass({
+        updateState: function() {
+          this.setState({items: shapeArray});
+        },
+
+        getInitialState: function() {
+          return {items: []};
+        },
+        
+        createItem: function(itemText, index) {
+          return <li>{itemText}</li>;
+        },
+
+        render: function() {
+
+          return <ol>{this.state.items.map(this.createItem)}</ol>; // How to write this differently
+        }
+      });
+
+      shapeListComponent = React.render(<ShapeList />, document.getElementById("shapeList"));
+    </script>
+  </body>
+</html>
