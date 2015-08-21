@@ -1,6 +1,6 @@
 
 fs = require('fs');
-fs.readFile('test.csv', 'utf8', function(err, data) {
+fs.readFile('us-500.csv', 'utf8', function(err, data) {
 
     readLines(data);
 });
@@ -26,25 +26,18 @@ function readLines(string) {
     // Create Array and toss first line
     string = string.replace(/,(\d{5}),/g, ',\"$1\",');
 
-    console.log(string);
-    console.log();
-
-    string = string.split('\n');
-    string.shift();
-
-    for (var i = 0; i < string.length; i++) {
-        string[i] = string[i].substr(1);
-        string[i] = string[i].substr(0, string[i].length - 1);
-        string[i] = string[i].split('\",\"');
+    var lines = string.split(/[\r\n]/); // Split on line endings, whether it's \r or \n
+    
+    lines.shift(); // Remove first line
+    
+    for (var i = 0; i < lines.length; i++) {
+        lines[i] = lines[i].substr(1); // Removes the first quote of each array item
+        lines[i] = lines[i].substr(0, lines[i].length - 1); // Removes the last quote of each array item
+        lines[i] = lines[i].split('","');
+        var output = lines[i].join(' | ');
+        console.log(output);
     }
 
-    for (var i = 0; i < string.length; i++) {
-        console.log(string[i][0] + ' | ' + string[i][1] + ' | ' + string[i][2] + ' | ' + string[i][3] +
-                    string[i][4] + ' | ' + string[i][5] + ' | ' + string[i][6] + ' | ' + string[i][7] +
-                    string[i][8] + ' | ' + string[i][9] + ' | ' + string[i][10] + ' | ' + string[i][11]);
-    }
-
-// 45646 5454 6545 34534 345345345
 }
 console.log();
 // Create An object
