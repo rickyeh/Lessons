@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="d3.min.js" type="text/javascript"></script>
+
+    </head>
+    <body>
+        <p>Hello dude!</p>
+        <p>What's going on?</p>
+
+        <script type="text/javascript">
+
+            d3.select("body").selectAll("p")
+                .data([4, 8, 15, 16, 23, 42])
+                .enter().append("p")
+                .text(function(d) {
+                    console.log(d);
+                    return "I’m number " + d + "!";
+                });
+        </script>
+    </body>
+</html>
