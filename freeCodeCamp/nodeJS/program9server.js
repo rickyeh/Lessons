@@ -51,9 +51,15 @@ var fs = require('fs');
 var listenPort = process.argv[2];
 var filePath = process.argv[3];
 
-var server = http.createServer(function (req, res) {
-    console.log('request : ' + req);
-    console.log('response : ' + res);
-});
+console.log(filePath);
+
+function handleRequest(req, res) {
+    console.log('Request received: ' + req);
+    
+    var readStream = fs.createReadStream(filePath);
+    readStream.pipe(res);
+}
+
+var server = http.createServer(handleRequest);
 
 server.listen(listenPort);
