@@ -1,0 +1,8 @@
+ curl 
+ -v 
+ -H "Accept: application/json" 
+ -H "Content-type: application/json" 
+ -X POST 
+ -d '{"userid": "mohit", "password":"password"}'  
+
+ http://mmedwebdemo.ddns.comp.nus.edu.sg:8080/comp.nuhs.jaxb/api/usr/login
