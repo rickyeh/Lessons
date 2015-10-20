@@ -1,0 +1,18 @@
+Call and Apply - ([thisObj], args)
+    sayHello.call(person1, 'Message goes here!');
+    sayHello.apply(person2, arrOfMsgs);
+        Call and apply are methods that are called on functions in order to pass in the context, "this".  That way you can call a function on any object, even if it doesn't exist in the object.
+
+Bind([thisObj])
+    sayHello.bind(person1);
+        Bind is similar to call and apply, but returns a function that can be called later for use in callback events, or async requests.
+
+Closures - 
+    Closures are functions that are created to capture the environment it is called in, for later use.  The inner function (the closure), stil has access to the outer function's variable.  Important to note that the closure has ONLY a REFERENCE to the outer function's variables, not the value itself. 
+
+Higher Order Functions
+1. forEach() - Calls a callback function on every element of the array
+2. map() - Creates a new array with results of calling a provided function on every element of the array.
+3. reduce() - Similar to forEach, except it passes it along to next iteration
+4. every() - 
+5. some() - 
