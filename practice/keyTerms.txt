@@ -11,8 +11,18 @@ Closures -
     Closures are functions that are created to capture the environment it is called in, for later use.  The inner function (the closure), stil has access to the outer function's variable.  Important to note that the closure has ONLY a REFERENCE to the outer function's variables, not the value itself. 
 
 Higher Order Functions
-1. forEach() - Calls a callback function on every element of the array
-2. map() - Creates a new array with results of calling a provided function on every element of the array.
-3. reduce() - Similar to forEach, except it passes it along to next iteration
-4. every() - 
-5. some() - 
+1. forEach(callback(curr, index, arr)) - Calls a callback function on every element of the array
+    - Returns undefined
+
+2. map(callback(curr, i, arr)) - Creates a new array with results of calling a provided function on every element of the array.
+    - returns new array
+
+3. reduce(callback(prev, curr, i, array), initVal) - Similar to forEach, except it passes it along to next iteration
+    - returns final return value of callback function call
+
+4. every(callback(curr, i, arr)) - Tests whether all elements pass test implemented by function
+    - Returns True if all func calls return true. False as soon as it finds one false.
+
+5. some(callback(curr, i, arr)) - Tests whether ANY element passes test implmented by function
+    - Returns true if ANY func call returns true.
+
