@@ -8,22 +8,25 @@
 var request = require('request');
 var prompt = require('prompt');
 
-var server = 'http://hangman.coursera.org/hangman/game';
+// const server = 'http://hangman.coursera.org/hangman/game';
+const server = 'http://localhost:12345';
+// const server = 'http://hangman-server.herokuapp.com/;'
+
 var initObj = {
     'email': 'rickbyeh@gmail.com'
 };
 
+// Stores the intial post request's response body
 var responseBody = {};
 
 // Initial POST request to start a new game.
-request({
+request.post({
     url: server,
     json: true,
     body: initObj,
 }, function(err, res, body) {
     console.log(body);
     responseBody = body;
-
     promptForGuess();
 });
 
@@ -39,7 +42,7 @@ function promptForGuess() {
 // Guesses a letter by sending post.
 // If game not over, will call promptForGuess() again.
 function guessLetter(letter) {
-    request({
+    request.post({
         url: server + '/' + responseBody.game_key,
         json: true,
         body: {'guess': letter},
