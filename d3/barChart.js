@@ -7,10 +7,26 @@ var x = d3.scale.linear()
 d3.select(".chart")
     .selectAll("div")
     .data(data)
-    .enter().append("div")
+    .enter()
+    .append("div")
     .style("width", function(d) {
         return x(d) + "px";
     })
+    .style("opacity" , function(d) {
+        if (d < 20) {
+            d = 20;
+        }
+        return d / 100;
+    })
     .text(function(d) {
         return d;
+    })
+    .style("font-size", function(d) {
+        if (d < 16) {
+            d = 16;
+        } else if (d > 60) {
+            d = 60;
+        }
+
+        return d + "px";
     });
