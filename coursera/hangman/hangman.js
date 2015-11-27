@@ -9,8 +9,8 @@ var request = require('request');
 var prompt = require('prompt');
 
 // const server = 'http://hangman.coursera.org/hangman/game';
-const server = 'http://localhost:12345';
-// const server = 'http://hangman-server.herokuapp.com/;'
+// const server = 'http://localhost:12345';
+const server = 'http://hangman-server.herokuapp.com/;'
 
 var initObj = {
     'email': 'rickbyeh@gmail.com'
