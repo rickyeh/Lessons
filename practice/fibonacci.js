@@ -35,9 +35,8 @@ function fibRecursive(n, depth) {
     } else if (n === 1) {
         total = 1;
     } else {
-        total = fibRecursive(n-1, depth+1) + fibRecursive(n-2, depth+1);
+        total = fibRecursive(n - 1, depth + 1) + fibRecursive(n - 2, depth + 1);
     }
-    console.log(Array(depth+1).join('|   ') + total);
     return total;
 }
 
