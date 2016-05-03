@@ -15,6 +15,7 @@
 		266602D11CD4337200255F29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 266602CF1CD4337200255F29 /* LaunchScreen.storyboard */; };
 		266602DC1CD44CE600255F29 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 266602DA1CD44CE600255F29 /* Sounds */; };
 		266602DD1CD44CE600255F29 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 266602DB1CD44CE600255F29 /* sprites.atlas */; };
+		266602E11CD848C900255F29 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266602E01CD848C900255F29 /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		266602D21CD4337200255F29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		266602DA1CD44CE600255F29 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		266602DB1CD44CE600255F29 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
+		266602E01CD848C900255F29 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameOverScene.swift; path = sprites.atlas/GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				266602DB1CD44CE600255F29 /* sprites.atlas */,
 				266602C21CD4337200255F29 /* AppDelegate.swift */,
 				266602C61CD4337200255F29 /* GameScene.swift */,
+				266602E01CD848C900255F29 /* GameOverScene.swift */,
 				266602C81CD4337200255F29 /* GameViewController.swift */,
 				266602CA1CD4337200255F29 /* Main.storyboard */,
 				266602CD1CD4337200255F29 /* Assets.xcassets */,
@@ -105,6 +108,7 @@
 				TargetAttributes = {
 					266602BE1CD4337200255F29 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = D7CTE4Z6LB;
 					};
 				};
 			};
@@ -146,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				266602E11CD848C900255F29 /* GameOverScene.swift in Sources */,
 				266602C71CD4337200255F29 /* GameScene.swift in Sources */,
 				266602C91CD4337200255F29 /* GameViewController.swift in Sources */,
 				266602C31CD4337200255F29 /* AppDelegate.swift in Sources */,
@@ -261,10 +266,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SpriteKitSimpleGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nimblecode.io.SpriteKitSimpleGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -272,10 +280,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SpriteKitSimpleGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nimblecode.io.SpriteKitSimpleGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -298,6 +309,7 @@
 				266602D71CD4337200255F29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
